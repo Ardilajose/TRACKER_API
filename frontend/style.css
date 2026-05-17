@@ -114,12 +114,12 @@ header:hover {
 }
 
 .balance-card:hover {
-    border-color: #10b981;
+    border-color: #fafafa;
     box-shadow: 0 15px 35px rgba(16, 185, 129, 0.1);
 }
 
 .balance-card:hover .amount {
-    color: #10b981;
+    color: #fafafa;
 }
 
 /* Colores estándar de los montos */
