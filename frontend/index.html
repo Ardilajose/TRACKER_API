@@ -3,106 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Gastos Personales</title>
+    <title>Control de Gastos Personales - COP</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <!-- encabezado -->
         <header>
             <div class="header-content">
                 <h1>💰 Control de Gastos Personales</h1>
                 <div class="subtitle">
-                    <p>Estudiante: Jose A. Ardila Cuello | Código: 18722</p>
-                    <p>Profesor: Luis Castilla Toscano | Fecha: 25/04/26</p>
+                    <p>estudiante: jose a. ardila cuello | codigo: 18722</p>
+                    <p>profesor: luis castilla toscano | fecha: 25/04/26</p>
+                    <p>moneda: pesos colombianos (cop)</p>
                 </div>
             </div>
         </header>
 
-        <!-- Resumen Financiero -->
         <div class="summary-cards">
             <div class="card income-card">
-                <h3>💰 Total Ingresos</h3>
+                <h3>💰 total ingresos</h3>
                 <p class="amount" id="totalIngresos">$0</p>
             </div>
             <div class="card expense-card">
-                <h3>💸 Total Gastos</h3>
+                <h3>💸 total gastos</h3>
                 <p class="amount" id="totalGastos">$0</p>
             </div>
             <div class="card balance-card">
-                <h3>⚖️ Balance</h3>
+                <h3>⚖️ balance</h3>
                 <p class="amount" id="balance">$0</p>
             </div>
         </div>
 
-        <!-- las categorías -->
         <div class="categories-section">
-            <h2>📊 Gastos por Categoría</h2>
+            <h2>📊 gastos por categoria</h2>
             <div class="categories-grid" id="categoriesGrid">
                 <div class="category-item">
-                    <span>Comida:</span>
+                    <span>comida:</span>
                     <strong id="catComida">$0</strong>
                 </div>
                 <div class="category-item">
-                    <span>Transporte:</span>
+                    <span>transporte:</span>
                     <strong id="catTransporte">$0</strong>
                 </div>
                 <div class="category-item">
-                    <span>Ocio:</span>
+                    <span>ocio:</span>
                     <strong id="catOcio">$0</strong>
                 </div>
             </div>
         </div>
 
-        <!-- formulario para registro -->
         <div class="form-section">
-            <h2>📝 Registrar Nueva Transacción</h2>
+            <h2>📝 registrar transaccion</h2>
             <form id="transactionForm">
                 <div class="form-group">
-                    <label for="descripcion">Descripción:</label>
-                    <input type="text" id="descripcion" required placeholder="Ej: Compra de supermercado">
+                    <label for="descripcion">descripcion:</label>
+                    <input type="text" id="descripcion" required placeholder="ej: compra de supermercado">
                 </div>
 
                 <div class="form-group">
-                    <label for="monto">Monto ($):</label>
-                    <input type="number" id="monto" required step="0.01" placeholder="0.00">
+                    <label for="monto">monto (cop):</label>
+                    <input type="number" id="monto" required step="1" placeholder="0">
                 </div>
 
                 <div class="form-group">
-                    <label for="categoria">Categoría:</label>
+                    <label for="categoria">categoria:</label>
                     <select id="categoria" required>
-                        <option value="">Seleccionar</option>
-                        <option value="comida">🍔 Comida</option>
-                        <option value="transporte">🚗 Transporte</option>
-                        <option value="ocio">🎮 Ocio</option>
-                        <option value="ingreso">💵 Ingreso</option>
+                        <option value="">seleccionar</option>
+                        <option value="comida">🍔 comida</option>
+                        <option value="transporte">🚗 transporte</option>
+                        <option value="ocio">🎮 ocio</option>
+                        <option value="ingreso">💵 ingreso</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="tipo">Tipo:</label>
+                    <label for="tipo">tipo:</label>
                     <select id="tipo" required>
-                        <option value="">Seleccionar</option>
-                        <option value="ingreso">Ingreso</option>
-                        <option value="gasto">Gasto</option>
+                        <option value="">seleccionar</option>
+                        <option value="ingreso">ingreso</option>
+                        <option value="gasto">gasto</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="fecha">Fecha:</label>
+                    <label for="fecha">fecha:</label>
                     <input type="date" id="fecha" required>
                 </div>
 
-                <button type="submit" class="btn-submit">✅ Registrar Transacción</button>
+                <button type="submit" class="btn-submit">registrar transaccion</button>
             </form>
         </div>
 
-        <!-- lista de las transacciones -->
         <div class="transactions-section">
-            <h2>📋 Historial de Transacciones</h2>
+            <h2>📋 historial de transacciones</h2>
             <div class="transactions-list" id="transactionsList">
-                <div class="loading">Cargando transacciones...</div>
+                <div class="loading">cargando transacciones...</div>
             </div>
         </div>
     </div>

@@ -1,11 +1,7 @@
 const API_URL = 'http://localhost:3000/api';
-
-// Variable global para la fecha actual
 let currentDate = '';
 
-// Cargar datos al iniciar
 document.addEventListener('DOMContentLoaded', () => {
-    // Establecer fecha actual por defecto
     const today = new Date().toISOString().split('T')[0];
     currentDate = today;
     document.getElementById('fecha').value = today;
@@ -15,13 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setupForm();
 });
 
-// Configurar formulario
 function setupForm() {
     const form = document.getElementById('transactionForm');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Validar campos
         const descripcion = document.getElementById('descripcion').value.trim();
         const monto = document.getElementById('monto').value;
         const categoria = document.getElementById('categoria').value;
@@ -29,12 +23,12 @@ function setupForm() {
         const fecha = document.getElementById('fecha').value;
         
         if (!descripcion || !monto || !categoria || !tipo || !fecha) {
-            alert('❌ Por favor, complete todos los campos');
+            alert('complete todos los campos');
             return;
         }
         
         if (parseFloat(monto) <= 0) {
-            alert('❌ El monto debe ser mayor a 0');
+            alert('el monto debe ser mayor a 0');
             return;
         }
         
@@ -46,10 +40,9 @@ function setupForm() {
             fecha: fecha
         };
         
-        // Mostrar loading en el botón
         const submitBtn = document.querySelector('.btn-submit');
         const originalText = submitBtn.textContent;
-        submitBtn.textContent = '⏳ Registrando...';
+        submitBtn.textContent = 'registrando...';
         submitBtn.disabled = true;
         
         try {
@@ -65,41 +58,37 @@ function setupForm() {
             const data = await response.json();
             
             if (response.ok) {
-                alert('✅ Transacción registrada exitosamente');
-                // Resetear formulario
+                alert('transaccion registrada');
                 form.reset();
                 document.getElementById('fecha').value = currentDate;
-                // Recargar datos
                 await loadTransactions();
                 await loadSummary();
             } else {
-                alert(`❌ Error: ${data.error || 'No se pudo registrar la transacción'}`);
+                alert(`error: ${data.error || 'no se pudo registrar'}`);
             }
         } catch (error) {
-            console.error('Error detallado:', error);
-            alert('❌ Error de conexión con el servidor. Verifique que el servidor esté ejecutándose en http://localhost:3000');
+            console.error('error:', error);
+            alert('error de conexion con el servidor');
         } finally {
-            // Restaurar botón
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
         }
     });
 }
 
-// Cargar transacciones
 async function loadTransactions() {
     try {
         const response = await fetch(`${API_URL}/transactions`);
         
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`http error! status: ${response.status}`);
         }
         
         const transactions = await response.json();
         const container = document.getElementById('transactionsList');
         
         if (!transactions || transactions.length === 0) {
-            container.innerHTML = '<div class="loading">📭 No hay transacciones registradas</div>';
+            container.innerHTML = '<div class="loading">no hay transacciones registradas</div>';
             return;
         }
         
@@ -110,28 +99,27 @@ async function loadTransactions() {
                     <div class="transaction-info">
                         <div class="transaction-desc">${escapeHtml(trans.descripcion)}</div>
                         <div class="transaction-details">
-                            📂 ${trans.categoria} | 📅 ${trans.fecha}
+                            ${trans.categoria} | ${trans.fecha}
                         </div>
                     </div>
                     <div class="transaction-amount ${trans.tipo}">
-                        ${trans.tipo === 'ingreso' ? '+' : '-'}$${trans.monto.toFixed(2)}
+                        ${trans.tipo === 'ingreso' ? '+' : '-'}$${formatCurrency(trans.monto)}
                     </div>
                     <button class="delete-btn" onclick="deleteTransaction(${trans.id})">
-                        🗑️ Eliminar
+                        eliminar
                     </button>
                 </div>
             `).join('');
             
     } catch (error) {
-        console.error('Error al cargar transacciones:', error);
+        console.error('error:', error);
         document.getElementById('transactionsList').innerHTML = 
-            '<div class="loading">❌ Error al cargar las transacciones. Verifique la conexión con el servidor.</div>';
+            '<div class="loading">error al cargar las transacciones</div>';
     }
 }
 
-// Eliminar transacción
 window.deleteTransaction = async (id) => {
-    if (confirm('¿Estás seguro de eliminar esta transacción?')) {
+    if (confirm('eliminar esta transaccion?')) {
         try {
             const response = await fetch(`${API_URL}/transactions/${id}`, {
                 method: 'DELETE',
@@ -143,37 +131,35 @@ window.deleteTransaction = async (id) => {
             const data = await response.json();
             
             if (response.ok) {
-                alert('✅ Transacción eliminada exitosamente');
+                alert('transaccion eliminada');
                 await loadTransactions();
                 await loadSummary();
             } else {
-                alert(`❌ Error: ${data.error || 'No se pudo eliminar la transacción'}`);
+                alert(`error: ${data.error || 'no se pudo eliminar'}`);
             }
         } catch (error) {
-            console.error('Error al eliminar:', error);
-            alert('❌ Error de conexión con el servidor');
+            console.error('error:', error);
+            alert('error de conexion');
         }
     }
 };
 
-// Cargar resumen financiero
 async function loadSummary() {
     try {
         const response = await fetch(`${API_URL}/summary`);
         
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`http error! status: ${response.status}`);
         }
         
         const summary = await response.json();
         
-        // Actualizar totales
-        document.getElementById('totalIngresos').textContent = `$${summary.totalIngresos.toFixed(2)}`;
-        document.getElementById('totalGastos').textContent = `$${summary.totalGastos.toFixed(2)}`;
+        document.getElementById('totalIngresos').textContent = `${formatCurrency(summary.totalIngresos)}`;
+        document.getElementById('totalGastos').textContent = `${formatCurrency(summary.totalGastos)}`;
         
         const balanceElement = document.getElementById('balance');
         const balance = summary.balance;
-        balanceElement.textContent = `$${balance.toFixed(2)}`;
+        balanceElement.textContent = `${formatCurrency(balance)}`;
         
         if (balance >= 0) {
             balanceElement.style.color = '#10b981';
@@ -181,18 +167,24 @@ async function loadSummary() {
             balanceElement.style.color = '#ef4444';
         }
         
-        // Actualizar categorías
-        document.getElementById('catComida').textContent = `$${(summary.categorias.comida || 0).toFixed(2)}`;
-        document.getElementById('catTransporte').textContent = `$${(summary.categorias.transporte || 0).toFixed(2)}`;
-        document.getElementById('catOcio').textContent = `$${(summary.categorias.ocio || 0).toFixed(2)}`;
+        document.getElementById('catComida').textContent = `${formatCurrency(summary.categorias.comida || 0)}`;
+        document.getElementById('catTransporte').textContent = `${formatCurrency(summary.categorias.transporte || 0)}`;
+        document.getElementById('catOcio').textContent = `${formatCurrency(summary.categorias.ocio || 0)}`;
         
     } catch (error) {
-        console.error('Error al cargar resumen:', error);
-        // No mostrar alert para no molestar al usuario
+        console.error('error:', error);
     }
 }
 
-// Función para escapar HTML y prevenir XSS
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: 'COP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(amount);
+}
+
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
