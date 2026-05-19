@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,17 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <header>
             <div class="header-content">
-                <h1>💰 Control de Gastos Personales</h1>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h1>💰 Control de Gastos Personales</h1>
+                    <button id="themeToggle" class="theme-toggle" aria-label="Cambiar tema">
+                        🌙 Modo Oscuro
+                    </button>
+                </div>
                 <div class="subtitle">
                     <p>moneda: pesos colombianos (cop)</p>
                 </div>
@@ -103,4 +110,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

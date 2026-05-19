@@ -190,3 +190,44 @@ function escapeHtml(text) {
     div.textContent = text;
     return div.innerHTML;
 }
+
+// Color de tema
+
+// Inicializar tema
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const themeToggle = document.getElementById('themeToggle');
+    
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        if (themeToggle) themeToggle.textContent = '☀️ Modo Claro';
+    } else {
+        document.body.classList.remove('dark-mode');
+        if (themeToggle) themeToggle.textContent = '🌙 Modo Oscuro';
+    }
+}
+
+// Cambiar tema
+function toggleTheme() {
+    const themeToggle = document.getElementById('themeToggle');
+    
+    if (document.body.classList.contains('dark-mode')) {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+        if (themeToggle) themeToggle.textContent = '🌙 Modo Oscuro';
+    } else {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        if (themeToggle) themeToggle.textContent = '☀️ Modo Claro';
+    }
+}
+
+// se agrega evento al botón cuando el DOM este listo
+document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
+    
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+});

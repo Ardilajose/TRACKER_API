@@ -498,3 +498,137 @@ header:hover {
     font-weight: 600;
     cursor: pointer;
 }
+
+/* ========== BOTÓN TEMA ========== */
+.theme-toggle {
+    background: rgba(102, 126, 234, 0.2);
+    border: 2px solid #667eea;
+    color: #667eea;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.theme-toggle:hover {
+    background: #667eea;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* ========== TEMA OSCURO ========== */
+body.dark-mode {
+    background: linear-gradient(135deg, #1e1e2e 0%, #2d1b4e 100%);
+}
+
+body.dark-mode header,
+body.dark-mode .card,
+body.dark-mode .categories-section,
+body.dark-mode .form-section,
+body.dark-mode .transactions-section {
+    background: #2d2d3f;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .header-content h1 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .subtitle {
+    color: #a0a0a0;
+    border-top-color: #3d3d4f;
+}
+
+body.dark-mode .card h3 {
+    color: #a0a0a0;
+}
+
+body.dark-mode .amount {
+    color: #e0e0e0;
+}
+
+body.dark-mode .income-card .amount {
+    color: #34d399;
+}
+
+body.dark-mode .expense-card .amount {
+    color: #f87171;
+}
+
+body.dark-mode .balance-card .amount {
+    color: #60a5fa;
+}
+
+body.dark-mode .categories-section h2,
+body.dark-mode .form-section h2,
+body.dark-mode .transactions-section h2 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .category-item {
+    background: #3d3d4f;
+}
+
+body.dark-mode .category-item span {
+    color: #a0a0a0;
+}
+
+body.dark-mode .category-item strong {
+    color: #e0e0e0;
+}
+
+body.dark-mode .form-group label {
+    color: #a0a0a0;
+}
+
+body.dark-mode .form-group input,
+body.dark-mode .form-group select {
+    background: #3d3d4f;
+    border-color: #4d4d5f;
+    color: #e0e0e0;
+}
+
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group select:focus {
+    border-color: #667eea;
+    outline: none;
+}
+
+body.dark-mode .form-group input::placeholder {
+    color: #7a7a8a;
+}
+
+body.dark-mode .transaction-item {
+    border-bottom-color: #3d3d4f;
+}
+
+body.dark-mode .transaction-item:hover {
+    background: #3d3d4f;
+}
+
+body.dark-mode .transaction-desc {
+    color: #e0e0e0;
+}
+
+body.dark-mode .transaction-details {
+    color: #8a8a9a;
+}
+
+body.dark-mode .loading {
+    color: #a0a0a0;
+}
+
+body.dark-mode .btn-submit {
+    background: linear-gradient(135deg, #5a6ad0 0%, #6a3a90 100%);
+}
+
+body.dark-mode .delete-btn {
+    background: #dc2626;
+}
+
+body.dark-mode .delete-btn:hover {
+    background: #b91c1c;
+}
