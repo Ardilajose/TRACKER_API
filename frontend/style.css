@@ -22,7 +22,6 @@ header {
     border-radius: 20px;
     padding: 25px;
     margin-bottom: 30px;
-    border: 1px solid #e0e0e0;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -63,7 +62,7 @@ header:hover {
     border-radius: 20px;
     padding: 25px;
     text-align: center;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #20202037;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -141,7 +140,7 @@ header:hover {
     border-radius: 20px;
     padding: 25px;
     margin-bottom: 30px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #20202037;
     transition: all 0.3s ease;
 }
 
@@ -198,7 +197,7 @@ header:hover {
     border-radius: 20px;
     padding: 25px;
     margin-bottom: 30px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #20202037;
     transition: all 0.3s ease;
 }
 
@@ -295,7 +294,7 @@ header:hover {
     background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
     border-radius: 20px;
     padding: 25px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid #20202037;
     transition: all 0.3s ease;
 }
 
@@ -514,14 +513,14 @@ header:hover {
 }
 
 .theme-toggle:hover {
-    background: #667eea;
+    background: #5521f177;
     color: white;
     transform: scale(1.05);
 }
 
-/* ========== TEMA OSCURO ========== */
+/* tema oscuro */
 body.dark-mode {
-    background: linear-gradient(135deg, #1e1e2e 0%, #2d1b4e 100%);
+    background: linear-gradient(125deg, #000000 55%, #5521F1 100%);
 }
 
 body.dark-mode header,
@@ -529,12 +528,12 @@ body.dark-mode .card,
 body.dark-mode .categories-section,
 body.dark-mode .form-section,
 body.dark-mode .transactions-section {
-    background: #2d2d3f;
+    background: #0C0C0C;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 body.dark-mode .header-content h1 {
-    color: #e0e0e0;
+    color: #a0a0a0;
 }
 
 body.dark-mode .subtitle {
@@ -569,7 +568,7 @@ body.dark-mode .transactions-section h2 {
 }
 
 body.dark-mode .category-item {
-    background: #3d3d4f;
+    background: #171717;
 }
 
 body.dark-mode .category-item span {
@@ -586,8 +585,8 @@ body.dark-mode .form-group label {
 
 body.dark-mode .form-group input,
 body.dark-mode .form-group select {
-    background: #3d3d4f;
-    border-color: #4d4d5f;
+    background: #171717;
+    border-color: #4d4d5f4e;
     color: #e0e0e0;
 }
 
