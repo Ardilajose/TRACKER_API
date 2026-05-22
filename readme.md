@@ -73,7 +73,7 @@ Desarrollar una aplicación web que permita gestionar y analizar ingresos y gast
 ## 🚀 Instalación y Ejecución
 
 ### Requisitos Previos
-- Node.js (v14 o superior) 
+- Node.js (v14 o superior)
 - npm (incluido con Node.js)
 - Navegador web moderno (Chrome, Firefox, Edge, Safari)
 

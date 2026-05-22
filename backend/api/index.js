@@ -4,49 +4,40 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
 
-// Usamos middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend')));
 
-// definimos la ruta del archivo JSON
-const dataFilePath = path.join(__dirname, 'data', 'transactions.json');
+// Servir archivos estáticos desde public/
+app.use(express.static(path.join(__dirname, '../public')));
 
-// Asegurarse que el directorio data existe
-if (!fs.existsSync(path.join(__dirname, 'data'))) {
-    fs.mkdirSync(path.join(__dirname, 'data'));
-}
+// Ruta del archivo JSON (esto NO persistirá bien en Vercel)
+const dataFilePath = path.join(__dirname, '../data/transactions.json');
 
-// Inicializamos archivo si no existe
-if (!fs.existsSync(dataFilePath)) {
-    fs.writeFileSync(dataFilePath, JSON.stringify([], null, 2));
-}
-
-// Leemos transacciones
+// Leer transacciones
 const readTransactions = () => {
-    const data = fs.readFileSync(dataFilePath, 'utf8');
-    return JSON.parse(data);
+    try {
+        const data = fs.readFileSync(dataFilePath, 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        return [];
+    }
 };
 
-// Escribirmos transacciones
+// Escribir transacciones
 const writeTransactions = (transactions) => {
     fs.writeFileSync(dataFilePath, JSON.stringify(transactions, null, 2));
 };
 
-// api endpoints.
-
-// Se recopilan todas las transacciones
+// ============ API ENDPOINTS ============
 app.get('/api/transactions', (req, res) => {
     const transactions = readTransactions();
     res.json(transactions);
 });
 
-// Conseguimos el resumen financiero
 app.get('/api/summary', (req, res) => {
     const transactions = readTransactions();
-
+    
     let totalIngresos = 0;
     let totalGastos = 0;
     const categorias = {};
@@ -76,16 +67,15 @@ app.get('/api/summary', (req, res) => {
     });
 });
 
-// para crear una nueva transacción
 app.post('/api/transactions', (req, res) => {
     const { descripcion, monto, categoria, tipo, fecha } = req.body;
-
+    
     if (!descripcion || !monto || !categoria || !tipo || !fecha) {
         return res.status(400).json({ error: 'Faltan campos requeridos' });
     }
 
     const transactions = readTransactions();
-
+    
     const newTransaction = {
         id: Date.now(),
         descripcion,
@@ -97,32 +87,23 @@ app.post('/api/transactions', (req, res) => {
 
     transactions.push(newTransaction);
     writeTransactions(transactions);
-
+    
     res.status(201).json(newTransaction);
 });
 
-// Eliminar una transacción
 app.delete('/api/transactions/:id', (req, res) => {
     const id = parseInt(req.params.id);
     let transactions = readTransactions();
-
+    
     const filteredTransactions = transactions.filter(t => t.id !== id);
-
+    
     if (filteredTransactions.length === transactions.length) {
         return res.status(404).json({ error: 'Transacción no encontrada' });
     }
-
+    
     writeTransactions(filteredTransactions);
     res.json({ message: 'Transacción eliminada correctamente' });
 });
 
-// Iniciar servidor
-if (process.env.NODE_ENV !== 'production') {
-    const PORT = 3000;
-    app.listen(PORT, () => {
-        console.log(`🚀 Servidor local corriendo en http://localhost:${PORT}`);
-    });
-}
-
-// EXPORTAR para Vercel (serverless)
+// Exportar para Vercel
 module.exports = app;
