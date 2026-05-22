@@ -46,7 +46,7 @@ app.get('/api/transactions', (req, res) => {
 // Conseguimos el resumen financiero
 app.get('/api/summary', (req, res) => {
     const transactions = readTransactions();
-    
+
     let totalIngresos = 0;
     let totalGastos = 0;
     const categorias = {};
@@ -79,13 +79,13 @@ app.get('/api/summary', (req, res) => {
 // para crear una nueva transacción
 app.post('/api/transactions', (req, res) => {
     const { descripcion, monto, categoria, tipo, fecha } = req.body;
-    
+
     if (!descripcion || !monto || !categoria || !tipo || !fecha) {
         return res.status(400).json({ error: 'Faltan campos requeridos' });
     }
 
     const transactions = readTransactions();
-    
+
     const newTransaction = {
         id: Date.now(),
         descripcion,
@@ -97,7 +97,7 @@ app.post('/api/transactions', (req, res) => {
 
     transactions.push(newTransaction);
     writeTransactions(transactions);
-    
+
     res.status(201).json(newTransaction);
 });
 
@@ -105,13 +105,13 @@ app.post('/api/transactions', (req, res) => {
 app.delete('/api/transactions/:id', (req, res) => {
     const id = parseInt(req.params.id);
     let transactions = readTransactions();
-    
+
     const filteredTransactions = transactions.filter(t => t.id !== id);
-    
+
     if (filteredTransactions.length === transactions.length) {
         return res.status(404).json({ error: 'Transacción no encontrada' });
     }
-    
+
     writeTransactions(filteredTransactions);
     res.json({ message: 'Transacción eliminada correctamente' });
 });
